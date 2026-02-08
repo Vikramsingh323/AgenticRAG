@@ -1,0 +1,13 @@
+[2026-02-08 21:21:35] INFO: RAGAgent initialized with K=10, num_answers=5, weights={'relevance': 0.4, 'coherence': 0.3, 'coverage': 0.3}
+[2026-02-08 21:21:35] INFO: [20260208_212135_286354] Processing question: What are the main features described in the documents?...
+[2026-02-08 21:21:35] DEBUG: Extracted 4 entities from question: ['main', 'features', 'described', 'documents?']
+[2026-02-08 21:21:35] DEBUG: Logged step 01_entity_extraction to agent_logs/step_01_entity_extraction_20260208_212135.json
+[2026-02-08 21:21:35] INFO: Extracted 4 entities
+[2026-02-08 21:21:35] INFO: [20260208_212135_326311] Processing question: How should I use this system?...
+[2026-02-08 21:21:35] DEBUG: Extracted 2 entities from question: ['this', 'system?']
+[2026-02-08 21:21:35] DEBUG: Logged step 01_entity_extraction to agent_logs/step_01_entity_extraction_20260208_212135.json
+[2026-02-08 21:21:35] INFO: Extracted 2 entities
+[2026-02-08 21:21:35] INFO: [20260208_212135_349170] Processing question: What are the key recommendations?...
+[2026-02-08 21:21:35] DEBUG: Extracted 1 entities from question: ['recommendations?']
+[2026-02-08 21:21:35] DEBUG: Logged step 01_entity_extraction to agent_logs/step_01_entity_extraction_20260208_212135.json
+[2026-02-08 21:21:35] INFO: Extracted 1 entities

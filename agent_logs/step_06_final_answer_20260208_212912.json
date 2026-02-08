@@ -1,0 +1,13 @@
+{
+  "question": "What are the main features described in the documents?",
+  "answer": "Based on the provided context about technical_guide_hdr_001, quarterly_report_sem_merged_002: Unable to generate (OpenAI not available).",
+  "confidence": 0.21309017717838286,
+  "top_chunk_ids": [
+    "technical_guide_hdr_001",
+    "quarterly_report_sem_merged_002",
+    "user_manual_sem_merged_002",
+    "quarterly_report_sem_merged_001",
+    "technical_guide_sem_merged_001"
+  ],
+  "duration_seconds": 1.047751
+}

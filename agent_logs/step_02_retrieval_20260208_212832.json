@@ -1,0 +1,16 @@
+{
+  "question": "What are the key recommendations?",
+  "retrieved_count": 10,
+  "chunk_ids": [
+    "technical_guide_sem_merged_002",
+    "quarterly_report_sem_merged_003",
+    "technical_guide_sem_merged_003",
+    "user_manual_sem_merged_003",
+    "quarterly_report_sem_merged_002",
+    "user_manual_sem_merged_002",
+    "quarterly_report_sem_merged_001",
+    "technical_guide_sem_merged_001",
+    "user_manual_sem_merged_001",
+    "technical_guide_hdr_001"
+  ]
+}

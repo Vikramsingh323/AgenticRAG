@@ -1,0 +1,13 @@
+{
+  "question": "What are the key recommendations?",
+  "answer": "Based on the provided context about technical_guide_hdr_001, technical_guide_sem_merged_002: Unable to generate (OpenAI not available).",
+  "confidence": 0.16536557115614414,
+  "top_chunk_ids": [
+    "technical_guide_hdr_001",
+    "technical_guide_sem_merged_002",
+    "quarterly_report_sem_merged_002",
+    "user_manual_sem_merged_002",
+    "quarterly_report_sem_merged_001"
+  ],
+  "duration_seconds": 0.899397
+}

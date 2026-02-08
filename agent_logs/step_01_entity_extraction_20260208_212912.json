@@ -1,0 +1,15 @@
+{
+  "question": "How should I use this system?",
+  "entities": [
+    {
+      "text": "this",
+      "type": "KEYWORD",
+      "confidence": 0.3
+    },
+    {
+      "text": "system?",
+      "type": "KEYWORD",
+      "confidence": 0.3
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "question": "How should I use this system?",
+  "answer": "Based on the provided context about technical_guide_hdr_001, user_manual_hdr_001: Unable to generate (OpenAI not available).",
+  "confidence": 0.1656259983405471,
+  "top_chunk_ids": [
+    "technical_guide_hdr_001",
+    "user_manual_hdr_001",
+    "user_manual_sem_merged_002",
+    "technical_guide_sem_merged_002",
+    "quarterly_report_sem_merged_001"
+  ],
+  "duration_seconds": 0.886571
+}

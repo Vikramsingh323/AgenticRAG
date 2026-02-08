@@ -1,0 +1,10 @@
+{
+  "question": "What is this?",
+  "entities": [
+    {
+      "text": "this?",
+      "type": "KEYWORD",
+      "confidence": 0.3
+    }
+  ]
+}

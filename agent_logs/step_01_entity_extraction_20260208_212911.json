@@ -1,0 +1,25 @@
+{
+  "question": "What are the main features described in the documents?",
+  "entities": [
+    {
+      "text": "main",
+      "type": "KEYWORD",
+      "confidence": 0.3
+    },
+    {
+      "text": "features",
+      "type": "KEYWORD",
+      "confidence": 0.3
+    },
+    {
+      "text": "described",
+      "type": "KEYWORD",
+      "confidence": 0.3
+    },
+    {
+      "text": "documents?",
+      "type": "KEYWORD",
+      "confidence": 0.3
+    }
+  ]
+}

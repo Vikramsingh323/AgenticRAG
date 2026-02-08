@@ -1,0 +1,5 @@
+[2026-02-08 21:27:47] INFO: RAGAgent initialized with K=5, num_answers=2, weights={'relevance': 0.4, 'coherence': 0.3, 'coverage': 0.3}
+[2026-02-08 21:27:47] INFO: [20260208_212747_821442] Processing question: What is this?...
+[2026-02-08 21:27:47] DEBUG: Extracted 1 entities from question: ['this?']
+[2026-02-08 21:27:47] DEBUG: Logged step 01_entity_extraction to agent_logs/step_01_entity_extraction_20260208_212747.json
+[2026-02-08 21:27:47] INFO: Extracted 1 entities

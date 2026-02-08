@@ -1,0 +1,10 @@
+{
+  "question": "What are the key recommendations?",
+  "entities": [
+    {
+      "text": "recommendations?",
+      "type": "KEYWORD",
+      "confidence": 0.3
+    }
+  ]
+}

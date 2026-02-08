@@ -1,0 +1,43 @@
+[2026-02-08 21:28:29] INFO: RAGAgent initialized with K=10, num_answers=5, weights={'relevance': 0.4, 'coherence': 0.3, 'coverage': 0.3}
+[2026-02-08 21:28:29] INFO: [20260208_212829_502698] Processing question: What are the main features described in the documents?...
+[2026-02-08 21:28:29] DEBUG: Extracted 4 entities from question: ['main', 'features', 'described', 'documents?']
+[2026-02-08 21:28:29] DEBUG: Logged step 01_entity_extraction to agent_logs/step_01_entity_extraction_20260208_212829.json
+[2026-02-08 21:28:29] INFO: Extracted 4 entities
+[2026-02-08 21:28:29] DEBUG: Logged step 02_retrieval to agent_logs/step_02_retrieval_20260208_212829.json
+[2026-02-08 21:28:29] INFO: Retrieved 10 chunks
+[2026-02-08 21:28:29] DEBUG: Logged step 03_answer_generation to agent_logs/step_03_answer_generation_20260208_212829.json
+[2026-02-08 21:28:29] INFO: Generated 5 answer sets
+[2026-02-08 21:28:30] DEBUG: Logged step 04_answer_scoring to agent_logs/step_04_answer_scoring_20260208_212830.json
+[2026-02-08 21:28:30] INFO: Scored answers; top=0.259
+[2026-02-08 21:28:31] DEBUG: Logged step 05_chunk_scoring to agent_logs/step_05_chunk_scoring_20260208_212831.json
+[2026-02-08 21:28:31] INFO: Selected 5 top chunks for augmented context
+[2026-02-08 21:28:31] DEBUG: Logged step 06_final_answer to agent_logs/step_06_final_answer_20260208_212831.json
+[2026-02-08 21:28:31] INFO: [20260208_212829_502698] Processing complete (confidence=0.213)
+[2026-02-08 21:28:31] INFO: [20260208_212831_292626] Processing question: How should I use this system?...
+[2026-02-08 21:28:31] DEBUG: Extracted 2 entities from question: ['this', 'system?']
+[2026-02-08 21:28:31] DEBUG: Logged step 01_entity_extraction to agent_logs/step_01_entity_extraction_20260208_212831.json
+[2026-02-08 21:28:31] INFO: Extracted 2 entities
+[2026-02-08 21:28:31] DEBUG: Logged step 02_retrieval to agent_logs/step_02_retrieval_20260208_212831.json
+[2026-02-08 21:28:31] INFO: Retrieved 10 chunks
+[2026-02-08 21:28:31] DEBUG: Logged step 03_answer_generation to agent_logs/step_03_answer_generation_20260208_212831.json
+[2026-02-08 21:28:31] INFO: Generated 5 answer sets
+[2026-02-08 21:28:31] DEBUG: Logged step 04_answer_scoring to agent_logs/step_04_answer_scoring_20260208_212831.json
+[2026-02-08 21:28:31] INFO: Scored answers; top=0.241
+[2026-02-08 21:28:32] DEBUG: Logged step 05_chunk_scoring to agent_logs/step_05_chunk_scoring_20260208_212832.json
+[2026-02-08 21:28:32] INFO: Selected 5 top chunks for augmented context
+[2026-02-08 21:28:32] DEBUG: Logged step 06_final_answer to agent_logs/step_06_final_answer_20260208_212832.json
+[2026-02-08 21:28:32] INFO: [20260208_212831_292626] Processing complete (confidence=0.166)
+[2026-02-08 21:28:32] INFO: [20260208_212832_185290] Processing question: What are the key recommendations?...
+[2026-02-08 21:28:32] DEBUG: Extracted 1 entities from question: ['recommendations?']
+[2026-02-08 21:28:32] DEBUG: Logged step 01_entity_extraction to agent_logs/step_01_entity_extraction_20260208_212832.json
+[2026-02-08 21:28:32] INFO: Extracted 1 entities
+[2026-02-08 21:28:32] DEBUG: Logged step 02_retrieval to agent_logs/step_02_retrieval_20260208_212832.json
+[2026-02-08 21:28:32] INFO: Retrieved 10 chunks
+[2026-02-08 21:28:32] DEBUG: Logged step 03_answer_generation to agent_logs/step_03_answer_generation_20260208_212832.json
+[2026-02-08 21:28:32] INFO: Generated 5 answer sets
+[2026-02-08 21:28:32] DEBUG: Logged step 04_answer_scoring to agent_logs/step_04_answer_scoring_20260208_212832.json
+[2026-02-08 21:28:32] INFO: Scored answers; top=0.232
+[2026-02-08 21:28:33] DEBUG: Logged step 05_chunk_scoring to agent_logs/step_05_chunk_scoring_20260208_212833.json
+[2026-02-08 21:28:33] INFO: Selected 5 top chunks for augmented context
+[2026-02-08 21:28:33] DEBUG: Logged step 06_final_answer to agent_logs/step_06_final_answer_20260208_212833.json
+[2026-02-08 21:28:33] INFO: [20260208_212832_185290] Processing complete (confidence=0.165)

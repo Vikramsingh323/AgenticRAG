@@ -1,0 +1,16 @@
+--- Page 1 ---
+Software User Manual
+ 
+System Requirements
+Operating System: Windows 10+, macOS 10.14+, Ubuntu 18.04+
+RAM: Minimum 4GB (8GB recommended)
+Storage: 2GB free disk space
+Internet: Broadband connection required
+Installation Instructions
+1. Download the installer from the official website
+2. Run the installer and follow the setup wizard
+3. Accept the license agreement
+4. Choose installation directory
+5. Click Install and wait for completion
+Getting Help
+For support, visit our documentation portal or contact support@example.com

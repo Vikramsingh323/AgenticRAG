@@ -1,0 +1,15 @@
+{
+  "id": "user_manual_hdr_001",
+  "text": "# user_manual\n**Generated from PDF**: user_manual.pdf\n**Total Pages**: 1\n\n---",
+  "source": "doc_dump_md/user_manual.md",
+  "strategy": "header",
+  "start_line": 1,
+  "end_line": 6,
+  "embedding": null,
+  "metadata": {
+    "header": "# user_manual",
+    "source_file": "doc_dump_md/user_manual.md",
+    "strategy": "header",
+    "threshold": 0.8
+  }
+}

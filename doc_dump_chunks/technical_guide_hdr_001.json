@@ -1,0 +1,15 @@
+{
+  "id": "technical_guide_hdr_001",
+  "text": "# technical_guide\n**Generated from PDF**: technical_guide.pdf\n**Total Pages**: 1\n\n---",
+  "source": "doc_dump_md/technical_guide.md",
+  "strategy": "header",
+  "start_line": 1,
+  "end_line": 6,
+  "embedding": null,
+  "metadata": {
+    "header": "# technical_guide",
+    "source_file": "doc_dump_md/technical_guide.md",
+    "strategy": "header",
+    "threshold": 0.8
+  }
+}
