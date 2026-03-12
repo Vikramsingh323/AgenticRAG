@@ -1,0 +1,13 @@
+{
+  "question": "What is the main focus of the quarterly report?",
+  "answer": "Based on the provided context about quarterly_report_hdr_001, test_upload_sem_merged_002: Unable to generate (SarvamAI not available).",
+  "confidence": 0.27417766479966343,
+  "top_chunk_ids": [
+    "quarterly_report_hdr_001",
+    "test_upload_sem_merged_002",
+    "technical_guide_hdr_001",
+    "quarterly_report_sem_merged_002",
+    "quarterly_report_sem_merged_001"
+  ],
+  "duration_seconds": 3.503727
+}

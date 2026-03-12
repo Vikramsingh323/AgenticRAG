@@ -53,17 +53,75 @@ def try_import_pdf_reader():
         return None
 
 
-def extract_text_from_pdf(reader_cls, src_path: Path, dest_txt: Path):
+def extract_text_from_pdf(src_path: Path, dest_txt: Path):
+    """Extract text/markdown from a PDF.
+
+    Preferred order: docling -> PyMuPDF (fitz) -> PyPDF2.
+    Writes plain text or markdown to dest_txt.
+    """
+    # 1) Try docling (if available)
     try:
-        reader = reader_cls(str(src_path)) if reader_cls.__name__ == "PdfReader" else reader_cls(str(src_path))
+        import docling
+        logging.info("Using docling to extract PDF content: %s", src_path)
+        content = None
+        try:
+            if hasattr(docling, 'to_markdown'):
+                content = docling.to_markdown(str(src_path))
+            elif hasattr(docling, 'parse_file'):
+                res = docling.parse_file(str(src_path))
+                if isinstance(res, dict) and 'markdown' in res:
+                    content = res['markdown']
+                else:
+                    content = str(res)
+            elif hasattr(docling, 'parse'):
+                res = docling.parse(str(src_path))
+                content = (res.get('markdown') if isinstance(res, dict) else str(res))
+            else:
+                # Try CLI
+                import shutil, subprocess
+                cli = shutil.which('docling')
+                if cli:
+                    out = subprocess.run([cli, 'to-markdown', str(src_path)], capture_output=True, text=True)
+                    if out.returncode == 0:
+                        content = out.stdout
+        except Exception as doc_err:
+            logging.warning("docling extraction attempt failed: %s", doc_err)
+
+        if content:
+            dest_txt.write_text(content, encoding='utf-8')
+            logging.info("Extracted (docling) to %s", dest_txt)
+            return
+    except Exception:
+        pass
+
+    # 2) Try PyMuPDF
+    try:
+        import fitz
+        logging.info("Using PyMuPDF to extract PDF content: %s", src_path)
+        doc = fitz.open(str(src_path))
+        parts = []
+        for page in doc:
+            parts.append(page.get_text() or "")
+        doc.close()
+        dest_txt.write_text("\n\n".join(parts), encoding='utf-8')
+        logging.info("Extracted (PyMuPDF) to %s", dest_txt)
+        return
+    except Exception:
+        pass
+
+    # 3) Fallback to PyPDF2
+    try:
+        from PyPDF2 import PdfReader
+        logging.info("Using PyPDF2 to extract PDF content: %s", src_path)
+        reader = PdfReader(str(src_path))
         text_parts = []
         for page in reader.pages:
             try:
                 text_parts.append(page.extract_text() or "")
             except Exception:
                 continue
-        dest_txt.write_text("\n\n".join(text_parts), encoding="utf-8")
-        logging.info("Extracted text to %s", dest_txt)
+        dest_txt.write_text("\n\n".join(text_parts), encoding='utf-8')
+        logging.info("Extracted (PyPDF2) to %s", dest_txt)
     except Exception as e:
         logging.warning("Failed extracting text from %s: %s", src_path, e)
 

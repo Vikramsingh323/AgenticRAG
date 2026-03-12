@@ -1,0 +1,15 @@
+{
+  "question": "What is the main focus?",
+  "entities": [
+    {
+      "text": "main",
+      "type": "KEYWORD",
+      "confidence": 0.3
+    },
+    {
+      "text": "focus?",
+      "type": "KEYWORD",
+      "confidence": 0.3
+    }
+  ]
+}

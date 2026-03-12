@@ -37,10 +37,10 @@ except Exception:
     SentenceTransformer = None
 
 try:
-    import openai
-    _OPENAI_AVAILABLE = True
+    import requests
+    _SARVAM_AVAILABLE = True
 except Exception:
-    _OPENAI_AVAILABLE = False
+    _SARVAM_AVAILABLE = False
 
 # ----------------------------- Setup & Logging --------------------------------
 
@@ -144,43 +144,140 @@ class EntityExtractor:
 class AnswerGenerator:
     """Generate candidate answers from chunk combinations."""
 
-    def __init__(self, model: str = "gpt-4o-mini") -> None:
+    def __init__(self, model: str = "Sarvam-2b-instruct") -> None:
         self.model = model
-        self.openai_available = _OPENAI_AVAILABLE and os.environ.get("OPENAI_API_KEY")
+        self.sarvam_api_key = os.environ.get("SARVAM_API_KEY")
+        self.sarvam_available = _SARVAM_AVAILABLE and self.sarvam_api_key
+        self.api_url = "https://api.sarvam.ai/chat/completions"
+        # embedder used for lightweight validation if available
+        try:
+            from sentence_transformers import SentenceTransformer
+            self.embedder = SentenceTransformer("all-MiniLM-L6-v2")
+        except Exception:
+            self.embedder = None
 
-    def generate_answer(self, question: str, chunks: List[Dict[str, Any]]) -> str:
-        """Generate an answer using provided chunks."""
+        # system-level prompt template that instructs the model to only use provided context
+        self.system_prompt = (
+            "You are an assistant that must answer questions strictly from the provided document context. "
+            "Do not invent facts. If the answer is not contained in the context, reply: 'I don't know based on the provided documents.'" 
+            "Cite supporting chunks inline like [chunk_id]. Keep answers concise and provide a short markdown-formatted summary."
+        )
+
+    def generate_answer(self, question: str, chunks: List[Dict[str, Any]], chat_history: Optional[List[str]] = None, strict: bool = True) -> str:
+        """Generate an answer using SarvamAI and provided chunks."""
         if not chunks:
-            if self.openai_available:
+            if self.sarvam_available:
                 try:
-                    resp = openai.ChatCompletion.create(
-                        model=self.model,
-                        messages=[{"role": "user", "content": question}],
-                        temperature=0.7,
-                        max_tokens=300,
+                    resp = requests.post(
+                        self.api_url,
+                        headers={
+                            "Authorization": f"Bearer {self.sarvam_api_key}",
+                            "Content-Type": "application/json"
+                        },
+                        json={
+                            "model": self.model,
+                            "messages": [
+                                {"role": "system", "content": self.system_prompt},
+                                {"role": "user", "content": question}
+                            ],
+                            "temperature": 0.7,
+                            "max_tokens": 300,
+                        },
+                        timeout=30
                     )
-                    return resp["choices"][0]["message"]["content"]
+                    resp.raise_for_status()
+                    data = resp.json()
+                    return data["choices"][0]["message"]["content"]
                 except Exception as e:
-                    logger.warning(f"OpenAI generation failed: {e}")
+                    logger.warning(f"SarvamAI generation failed: {e}")
             return f"Unable to generate answer for: {question}"
+        # build context (limit size to avoid huge payloads)
+        context_items = []
+        for c in chunks[:20]:
+            cid = c.get('id')
+            text = c.get('text', '')
+            context_items.append(f"[{cid}] {text}")
+        context = "\n\n".join(context_items)
 
-        context = "\n\n".join([f"[{c.get('id')}] {c.get('text', '')}" for c in chunks])
-        prompt = f"Context:\n{context}\n\nQuestion: {question}\n\nAnswer (concise, 150 words max):"
+        # compose user prompt with context and optional chat history
+        user_parts = []
+        if chat_history:
+            user_parts.append("Previous conversation:\n" + "\n".join(chat_history[-6:]))
+        user_parts.append(f"Context:\n{context}")
+        user_parts.append(f"Question: {question}")
+        if strict:
+            user_parts.append("Requirements: Answer only from the context. If unknown, respond exactly: 'I don't know based on the provided documents.' Cite supporting chunk ids in square brackets and format the answer in markdown.")
+        user_parts.append("Answer (concise, 200 words max):")
+        user_prompt = "\n\n".join(user_parts)
 
-        if self.openai_available:
+        if self.sarvam_available:
             try:
-                resp = openai.ChatCompletion.create(
-                    model=self.model,
-                    messages=[{"role": "user", "content": prompt}],
-                    temperature=0.7,
-                    max_tokens=300,
+                resp = requests.post(
+                    self.api_url,
+                    headers={
+                        "Authorization": f"Bearer {self.sarvam_api_key}",
+                        "Content-Type": "application/json"
+                    },
+                    json={
+                        "model": self.model,
+                        "messages": [
+                            {"role": "system", "content": self.system_prompt},
+                            {"role": "user", "content": user_prompt}
+                        ],
+                        "temperature": 0.0,
+                        "max_tokens": 500,
+                    },
+                    timeout=60
                 )
-                return resp["choices"][0]["message"]["content"]
+                resp.raise_for_status()
+                data = resp.json()
+                return data["choices"][0]["message"]["content"]
             except Exception as e:
-                logger.warning(f"OpenAI generation failed: {e}")
+                logger.warning(f"SarvamAI generation failed: {e}")
 
-        # fallback: mock answer from chunks
-        return f"Based on the provided context about {', '.join([c.get('id') for c in chunks][:2])}: Unable to generate (OpenAI not available)."
+        # fallback: simple synthesis from chunks
+        snippet = "\n\n".join([f"[{c.get('id')}] {c.get('text', '')[:300]}" for c in chunks[:3]])
+        return f"Based on the provided context:\n\n{snippet}\n\n(LLM not available)"
+
+
+class ChunkValidator:
+    """Validate that provided chunks support the candidate answer.
+
+    Uses embedding similarity between chunk text and answer to filter out unrelated chunks.
+    If no embedder available, performs a token-overlap heuristic.
+    """
+
+    def __init__(self, embedder: Optional[Any] = None, similarity_threshold: float = 0.55):
+        self.embedder = embedder
+        self.similarity_threshold = similarity_threshold
+
+    def validate(self, answer_text: str, chunks: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        validated = []
+        if not chunks:
+            return validated
+        if self.embedder is not None:
+            try:
+                a_emb = self.embedder.encode([answer_text], convert_to_numpy=True)[0]
+                for c in chunks:
+                    try:
+                        c_emb = self.embedder.encode([c.get('text','')], convert_to_numpy=True)[0]
+                        sim = float(np.dot(a_emb, c_emb) / (np.linalg.norm(a_emb) * np.linalg.norm(c_emb) + 1e-12))
+                        if sim >= self.similarity_threshold:
+                            validated.append(c)
+                    except Exception:
+                        continue
+                return validated
+            except Exception:
+                pass
+
+        # Fallback heuristic: token overlap
+        ans_tokens = set([t.lower() for t in answer_text.split() if len(t) > 3])
+        for c in chunks:
+            text_tokens = set([t.lower() for t in c.get('text','').split() if len(t) > 3])
+            overlap = len(ans_tokens & text_tokens)
+            if overlap >= 3:
+                validated.append(c)
+        return validated
 
 
 # ----------------------------- Scoring ----------------------------------------
@@ -329,10 +426,19 @@ class RAGAgent:
 
         # Step 7: Augment context and generate final answer
         augmented_chunks = [{"id": c.id, "text": c.text, "score": c.combined_score} for c in top_chunks]
-        final_answer_text = self.answer_generator.generate_answer(question, augmented_chunks)
+        final_answer_text = self.answer_generator.generate_answer(question, augmented_chunks, chat_history=chat_history, strict=True)
+
+        # Validate chunks against the generated answer and optionally regenerate using validated chunks
+        validator = ChunkValidator(embedder=self.chunk_scorer.embedder if hasattr(self.chunk_scorer, 'embedder') else None)
+        validated = validator.validate(final_answer_text, augmented_chunks)
+        if validated and len(validated) < len(augmented_chunks):
+            logger.info(f"Validator filtered chunks: {len(augmented_chunks)} -> {len(validated)}; regenerating answer with validated chunks")
+            # regenerate final answer using only validated chunks
+            final_answer_text = self.answer_generator.generate_answer(question, validated, chat_history=chat_history, strict=True)
+            top_chunks = [ScoredChunk(id=c.get('id'), text=c.get('text'), relevance_to_question=0.0, avg_relevance_to_answers=0.0, combined_score=0.0, used_in_answers=0) for c in validated]
 
         # Step 8: Return result
-        confidence = (scored_answers[0].combined_score + np.mean([c.combined_score for c in top_chunks])) / 2.0
+        confidence = (scored_answers[0].combined_score + np.mean([c.combined_score for c in top_chunks])) / 2.0 if top_chunks else float(scored_answers[0].combined_score)
         result = FinalAnswer(
             answer_text=final_answer_text,
             confidence_score=float(confidence),

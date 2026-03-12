@@ -64,11 +64,8 @@ class APIClient {
       const formData = new FormData()
       formData.append('file', file)
 
-      const response = await this.client.post('/api/upload', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      })
+      // Don't set Content-Type header - let axios set it with proper boundary
+      const response = await this.client.post('/api/upload', formData)
       return response.data
     } catch (error) {
       throw this.handleError(error)

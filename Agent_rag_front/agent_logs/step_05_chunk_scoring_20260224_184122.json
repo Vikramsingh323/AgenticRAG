@@ -1,0 +1,44 @@
+{
+  "chunks": [
+    {
+      "id": "quarterly_report_hdr_001",
+      "text": "# quarterly_report\n**Generated from PDF**: quarterly_report.pdf\n**Total Pages**: 1\n\n---",
+      "relevance_to_question": 0.5263701395011728,
+      "avg_relevance_to_answers": 0.2481431623304175,
+      "combined_score": 0.3872566509157952,
+      "used_in_answers": 0
+    },
+    {
+      "id": "test_upload_sem_merged_002",
+      "text": "Q4 2025 Business Report\nExecutive Summary\nThis report summarizes the performance metrics and strategic initiatives completed during the fourth\nquarter of 2025.\nKey Metrics\nRevenue Growth: +25%\nCustomer Acquisition: 150 new clients\nProduct Launches: 3 new features\nTeam Expansion: 12 new hires\nConclusion\nThe quarter demonstrated strong growth across all business segments with successful product\nlaunches and market expansion.",
+      "relevance_to_question": 0.4566078134303073,
+      "avg_relevance_to_answers": 0.1630173025707527,
+      "combined_score": 0.30981255800053,
+      "used_in_answers": 2
+    },
+    {
+      "id": "technical_guide_hdr_001",
+      "text": "# technical_guide\n**Generated from PDF**: technical_guide.pdf\n**Total Pages**: 1\n\n---",
+      "relevance_to_question": 0.2567290220692584,
+      "avg_relevance_to_answers": 0.16677312705258568,
+      "combined_score": 0.21175107456092204,
+      "used_in_answers": 1
+    },
+    {
+      "id": "quarterly_report_sem_merged_002",
+      "text": "schema_name='DoclingDocument' version='1.9.0' name='quarterly_report_page_001' origin=DocumentOrigin(mimetype='application/pdf', binary_hash=8222355085144505850, filename='quarterly_report_page_001.pdf', uri=None) furniture=GroupItem(self_ref='#/furniture', parent=None, children=[], content_layer=<ContentLayer.FURNITURE: 'furniture'>, meta=None, name='_root_', label=<GroupLabel.UNSPECIFIED: 'unspecified'>) body=GroupItem(self_ref='#/body', parent=None, children=[RefItem(cref='#/texts/0'), RefItem(cref='#/texts/1'), RefItem(cref='#/texts/2'), RefItem(cref='#/texts/3'), RefItem(cref='#/groups/0'), RefItem(cref='#/texts/8'), RefItem(cref='#/texts/9')], content_layer=<ContentLayer.BODY: 'body'>, meta=None, name='_root_', label=<GroupLabel.UNSPECIFIED: 'unspecified'>) groups=[GroupItem(self_ref='#/groups/0', parent=RefItem(cref='#/body'), children=[RefItem(cref='#/texts/4'), RefItem(cref='#/texts/5'), RefItem(cref='#/texts/6'), RefItem(cref='#/texts/7')], content_layer=<ContentLayer.BODY: 'body'>, meta=None, name='group', label=<GroupLabel.KEY_VALUE_AREA: 'key_value_area'>)] texts=[SectionHeaderItem(self_ref='#/texts/0', parent=RefItem(cref='#/body'), children=[], content_layer=<ContentLayer.BODY: 'body'>, meta=None, label=<DocItemLabel.SECTION_HEADER: 'section_header'>, prov=[ProvenanceItem(page_no=1, bbox=BoundingBox(l=161.28, t=707.232, r=437.28, b=685.032, coord_origin=<CoordOrigin.BOTTOMLEFT: 'BOTTOMLEFT'>), charspan=(0, 23))], source=[], comments=[], orig='Q4 2025 Business Report', text='Q4 2025 Business Report', formatting=None, hyperlink=None, level=1), SectionHeaderItem(self_ref='#/texts/1', parent=RefItem(cref='#/body'), children=[], content_layer=<ContentLayer.BODY: 'body'>, meta=None, label=<DocItemLabel.SECTION_HEADER: 'section_header'>, prov=[ProvenanceItem(page_no=1, bbox=BoundingBox(l=78.0, t=624.452, r=197.0, b=611.502, coord_origin=<CoordOrigin.BOTTOMLEFT: 'BOTTOMLEFT'>), charspan=(0, 17))], source=[], comments=[], orig='Executive Summary', text='Executive Summary', formatting=None, hyperlink=None, level=1), TextItem(self_ref='#/texts/2', parent=RefItem(cref='#/body'), children=[], content_layer=<ContentLayer.BODY: 'body'>, meta=None, label=<DocItemLabel.TEXT: 'text'>, prov=[ProvenanceItem(page_no=1, bbox=BoundingBox(l=78.0, t=601.58, r=578.0, b=580.33, coord_origin=<CoordOrigin.BOTTOMLEFT: 'BOTTOMLEFT'>), charspan=(0, 117))], source=[], comments=[], orig='This report summarizes the performance metrics and strategic initiatives completed during the fourth quarter of 2025.', text='This report summarizes the performance metrics and strategic initiatives completed during the fourth quarter of 2025.', formatting=None, hyperlink=None), SectionHeaderItem(self_ref='#/texts/3', parent=RefItem(cref='#/body'), children=[], content_layer=<ContentLayer.BODY: 'body'>, meta=None, label=<DocItemLabel.SECTION_HEADER: 'section_header'>, prov=[ProvenanceItem(page_no=1, bbox=BoundingBox(l=78.0, t=550.052, r=155.0, b=537.102, coord_origin=<CoordOrigin.BOTTOMLEFT: 'BOTTOMLEFT'>), charspan=(0, 11))], source=[], comments=[], orig='Key Metrics', text='Key Metrics', formatting=None, hyperlink=None, level=1), TextItem(self_ref='#/texts/4', parent=RefItem(cref='#/groups/0'), children=[], content_layer=<ContentLayer.BODY: 'body'>, meta=None, label=<DocItemLabel.TEXT: 'text'>, prov=[ProvenanceItem(page_no=1, bbox=BoundingBox(l=78.0, t=527.18, r=178.0, b=517.93, coord_origin=<CoordOrigin.BOTTOMLEFT: 'BOTTOMLEFT'>), charspan=(0, 20))], source=[], comments=[], orig='Revenue Growth: +25%', text='Revenue Growth: +25%', formatting=None, hyperlink=None), TextItem(self_ref='#/texts/5', parent=RefItem(cref='#/groups/0'), children=[], content_layer=<ContentLayer.BODY: 'body'>, meta=None, label=<DocItemLabel.TEXT: 'text'>, prov=[ProvenanceItem(page_no=1, bbox=BoundingBox(l=78.0, t=515.18, r=263.0, b=505.93, coord_origin=<CoordOrigin.BOTTOMLEFT: 'BOTTOMLEFT'>), charspan=(0, 37))], source=[], comments=[], orig='Customer Acquisition: 150 new clients', text='Customer Acquisition: 150 new clients', formatting=None, hyperlink=None), TextItem(self_ref='#/texts/6', parent=RefItem(cref='#/groups/0'), children=[], content_layer=<ContentLayer.BODY: 'body'>, meta=None, label=<DocItemLabel.TEXT: 'text'>, prov=[ProvenanceItem(page_no=1, bbox=BoundingBox(l=78.0, t=503.18, r=238.0, b=493.93, coord_origin=<CoordOrigin.BOTTOMLEFT: 'BOTTOMLEFT'>), charspan=(0, 32))], source=[], comments=[], orig='Product Launches: 3 new features', text='Product Launches: 3 new features', formatting=None, hyperlink=None), TextItem(self_ref='#/texts/7', parent=RefItem(cref='#/groups/0'), children=[], content_layer=<ContentLayer.BODY: 'body'>, meta=None, label=<DocItemLabel.TEXT: 'text'>, prov=[ProvenanceItem(page_no=1, bbox=BoundingBox(l=78.0, t=491.18, r=218.0, b=481.93, coord_origin=<CoordOrigin.BOTTOMLEFT: 'BOTTOMLEFT'>), charspan=(0, 28))], source=[], comments=[], orig='Team Expansion: 12 new hires', text='Team Expansion: 12 new hires', formatting=None, hyperlink=None), SectionHeaderItem(self_ref='#/texts/8', parent=RefItem(cref='#/body'), children=[], content_layer=<ContentLayer.BODY: 'body'>, meta=None, label=<DocItemLabel.SECTION_HEADER: 'section_header'>, prov=[ProvenanceItem(page_no=1, bbox=BoundingBox(l=78.0, t=451.652, r=148.0, b=438.702, coord_origin=<CoordOrigin.BOTTOMLEFT: 'BOTTOMLEFT'>), charspan=(0, 10))], source=[], comments=[], orig='Conclusion', text='Conclusion', formatting=None, hyperlink=None, level=1), TextItem(self_ref='#/texts/9', parent=RefItem(cref='#/body'), children=[], content_layer=<ContentLayer.BODY: 'body'>, meta=None, label=<DocItemLabel.TEXT: 'text'>, prov=[ProvenanceItem(page_no=1, bbox=BoundingBox(l=78.0, t=428.78, r=533.0, b=407.53, coord_origin=<CoordOrigin.BOTTOMLEFT: 'BOTTOMLEFT'>), charspan=(0, 122))], source=[], comments=[], orig='The quarter demonstrated strong growth across all business segments with successful product launches and market expansion.', text='The quarter demonstrated strong growth across all business segments with successful product launches and market expansion.', formatting=None, hyperlink=None)] pictures=[] tables=[] key_value_items=[] form_items=[] pages={1: PageItem(size=Size(width=612.0, height=792.0), image=None, page_no=1)}",
+      "relevance_to_question": 0.24058581832538736,
+      "avg_relevance_to_answers": 0.14535156400594687,
+      "combined_score": 0.19296869116566712,
+      "used_in_answers": 2
+    },
+    {
+      "id": "quarterly_report_sem_merged_001",
+      "text": "## Page 1",
+      "relevance_to_question": 0.1198100217949172,
+      "avg_relevance_to_answers": 0.040224291792132834,
+      "combined_score": 0.08001715679352502,
+      "used_in_answers": 0
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "answers": [
+    {
+      "text": "Based on the provided context about quarterly_report_sem_merged_001, quarterly_report_sem_merged_002: Unable to generate (OpenAI not available).",
+      "relevance_score": 0.04002829879686995,
+      "coherence_score": 0.5,
+      "coverage_score": 0.2,
+      "combined_score": 0.22601131951874798,
+      "source_chunk_ids": [
+        "quarterly_report_sem_merged_001",
+        "quarterly_report_sem_merged_002"
+      ]
+    },
+    {
+      "text": "Based on the provided context about user_manual_sem_merged_003, quarterly_report_sem_merged_002: Unable to generate (OpenAI not available).",
+      "relevance_score": 0.025864209337710425,
+      "coherence_score": 0.5,
+      "coverage_score": 0.2,
+      "combined_score": 0.22034568373508417,
+      "source_chunk_ids": [
+        "user_manual_sem_merged_003",
+        "quarterly_report_sem_merged_002",
+        "technical_guide_sem_merged_001",
+        "quarterly_report_sem_merged_004",
+        "technical_guide_sem_merged_003"
+      ]
+    },
+    {
+      "text": "Based on the provided context about user_manual_sem_merged_003, quarterly_report_sem_merged_004: Unable to generate (OpenAI not available).",
+      "relevance_score": 0.025422462846162102,
+      "coherence_score": 0.5,
+      "coverage_score": 0.2,
+      "combined_score": 0.22016898513846483,
+      "source_chunk_ids": [
+        "user_manual_sem_merged_003",
+        "quarterly_report_sem_merged_004",
+        "technical_guide_sem_merged_002"
+      ]
+    },
+    {
+      "text": "Based on the provided context about user_manual_sem_merged_001, technical_guide_sem_merged_001: Unable to generate (OpenAI not available).",
+      "relevance_score": 0.01508685291329621,
+      "coherence_score": 0.5,
+      "coverage_score": 0.2,
+      "combined_score": 0.21603474116531848,
+      "source_chunk_ids": [
+        "user_manual_sem_merged_001",
+        "technical_guide_sem_merged_001"
+      ]
+    },
+    {
+      "text": "Based on the provided context about technical_guide_sem_merged_001, technical_guide_sem_merged_003: Unable to generate (OpenAI not available).",
+      "relevance_score": 0.008682917389736875,
+      "coherence_score": 0.5,
+      "coverage_score": 0.2,
+      "combined_score": 0.21347316695589474,
+      "source_chunk_ids": [
+        "technical_guide_sem_merged_001",
+        "technical_guide_sem_merged_003"
+      ]
+    }
+  ]
+}

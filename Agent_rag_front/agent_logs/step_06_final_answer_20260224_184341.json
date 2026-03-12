@@ -1,0 +1,13 @@
+{
+  "question": "What is the main focus?",
+  "answer": "Based on the provided context about technical_guide_hdr_001, test_upload_sem_merged_002: Unable to generate (SarvamAI not available).",
+  "confidence": 0.15192164443746345,
+  "top_chunk_ids": [
+    "technical_guide_hdr_001",
+    "test_upload_sem_merged_002",
+    "technical_guide_sem_merged_002",
+    "quarterly_report_sem_merged_001",
+    "technical_guide_sem_merged_001"
+  ],
+  "duration_seconds": 2.287441
+}

@@ -26,6 +26,12 @@ except Exception:
     SentenceTransformer = None
     CrossEncoder = None
 
+# BM25 keyword search support
+try:
+    from rank_bm25 import BM25Okapi
+except Exception:
+    BM25Okapi = None
+
 try:
     import chromadb
 except Exception:
@@ -81,6 +87,27 @@ class Retriever:
         self.embedder = SentenceTransformer(embed_model)
         logger.info(f"Loaded embedder: {embed_model}")
 
+        # load all documents for BM25
+        self.bm25 = None
+        self._doc_texts: List[str] = []
+        self._doc_ids: List[str] = []
+        if BM25Okapi is not None:
+            try:
+                # fetch existing docs from collection
+                all_data = self.collection.get(include=["ids","documents"])
+                docs = all_data.get("documents", [])
+                ids = all_data.get("ids", [])
+                # flatten lists
+                docs_flat = [d for sub in docs for d in sub]
+                ids_flat = [i for sub in ids for i in sub]
+                self._doc_texts = docs_flat
+                self._doc_ids = ids_flat
+                tokenized = [doc.lower().split() for doc in self._doc_texts]
+                self.bm25 = BM25Okapi(tokenized)
+                logger.info("Initialized BM25 index with %d documents", len(self._doc_texts))
+            except Exception as e:
+                logger.warning(f"Failed to build BM25 index: {e}")
+
         self.cross_encoder = None
         if CrossEncoder is not None and cross_encoder_model:
             try:
@@ -99,6 +126,16 @@ class Retriever:
             emb = self.embedder.encode([text], convert_to_numpy=True)[0].tolist()
         # chroma's add will append; some versions support update/replace - use add which will dedup if ids same
         self.collection.add(ids=[cid], documents=[text], metadatas=[metadata], embeddings=[emb])
+        # update BM25 in-memory index
+        if BM25Okapi is not None:
+            try:
+                # append to texts and ids
+                self._doc_texts.append(text)
+                self._doc_ids.append(cid)
+                tokenized = [doc.lower().split() for doc in self._doc_texts]
+                self.bm25 = BM25Okapi(tokenized)
+            except Exception as e:
+                logger.warning(f"Failed to update BM25 index on upsert: {e}")
 
     def _semantic_candidates(self, query: str, top_k: int = 10, fetch_k: Optional[int] = None) -> List[Hit]:
         fetch_k = fetch_k or max(50, top_k * 5)
@@ -116,6 +153,21 @@ class Retriever:
             hits.append(Hit(id=ids[i], text=doc, metadata=metadatas[i] if (metadatas is not None and i < len(metadatas)) else {}, embedding=emb.tolist() if emb is not None else None, sem_score=sem, keyword_score=0.0, final_score=sem))
         return hits
 
+    def _bm25_scores(self, query: str) -> Dict[str, float]:
+        """Return BM25 scores for each doc id (normalized 0..1)."""
+        if self.bm25 is None:
+            return {}
+        tokenized_q = query.lower().split()
+        scores = self.bm25.get_scores(tokenized_q)
+        if not scores.any():
+            return {}
+        # normalize
+        max_score = float(scores.max())
+        if max_score <= 0:
+            return {}
+        normalized = scores / max_score
+        return {self._doc_ids[i]: float(normalized[i]) for i in range(len(self._doc_ids))}
+
     def search(self, query: str, top_k: int = 10, keywords: Optional[List[str]] = None, hybrid_weight: float = 0.7, rerank: bool = True, chat_history: Optional[List[str]] = None) -> List[Dict[str, Any]]:
         """Hybrid search combining semantic and keyword signals.
 
@@ -126,7 +178,8 @@ class Retriever:
         """
         candidates = self._semantic_candidates(query, top_k=top_k)
 
-        # compute keyword scores if requested
+        # compute keyword scores using either explicit keywords or BM25
+        kw_scores = {}
         if keywords:
             kws = [k.lower() for k in keywords]
             for c in candidates:
@@ -137,8 +190,10 @@ class Retriever:
                         score += 1.0
                 c.keyword_score = score / max(1.0, len(kws))
         else:
+            # default to BM25 scores if available
+            bm = self._bm25_scores(query)
             for c in candidates:
-                c.keyword_score = 0.0
+                c.keyword_score = bm.get(c.id, 0.0)
 
         # normalize semantic scores into 0..1
         sems = np.array([c.sem_score for c in candidates], dtype=float)

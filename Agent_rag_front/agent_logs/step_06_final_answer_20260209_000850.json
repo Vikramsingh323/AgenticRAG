@@ -1,0 +1,13 @@
+{
+  "question": "test",
+  "answer": "Based on the provided context about quarterly_report_sem_merged_004, quarterly_report_sem_merged_001: Unable to generate (OpenAI not available).",
+  "confidence": 0.18340267828900997,
+  "top_chunk_ids": [
+    "quarterly_report_sem_merged_004",
+    "quarterly_report_sem_merged_001",
+    "technical_guide_sem_merged_001",
+    "user_manual_sem_merged_001",
+    "quarterly_report_sem_merged_002"
+  ],
+  "duration_seconds": 2.159896
+}

@@ -205,46 +205,91 @@ def upload():
             md_dir.mkdir(exist_ok=True, parents=True)
             
             if file_ext == 'pdf':
-                # For PDF files, try to convert to markdown
+                # For PDF files, try to convert to markdown.
+                # Preferred parser: docling (if installed). Fallback: PyMuPDF (fitz), then PyPDF2.
                 logger.info(f"Converting PDF to markdown: {safe_filename}")
                 md_filename = safe_filename.replace('.pdf', '.md')
                 md_filepath = md_dir / md_filename
-                
+
+                md_file_to_index = None
+
+                # 1) Try docling if available
                 try:
-                    # Try using pymupdf or pypdf to extract text
+                    import docling
+                    logger.info("docling available — attempting to parse to markdown")
+                    content = None
+                    # Try common APIs on docling (best-effort, wrapped in try/except)
+                    try:
+                        if hasattr(docling, 'to_markdown'):
+                            content = docling.to_markdown(str(uploaded_filepath))
+                        elif hasattr(docling, 'parse_file'):
+                            res = docling.parse_file(str(uploaded_filepath))
+                            if isinstance(res, dict) and 'markdown' in res:
+                                content = res['markdown']
+                            else:
+                                content = str(res)
+                        elif hasattr(docling, 'parse'):
+                            res = docling.parse(str(uploaded_filepath))
+                            content = (res.get('markdown') if isinstance(res, dict) else str(res))
+                        else:
+                            # Try CLI if available
+                            import shutil, subprocess
+                            cli = shutil.which('docling')
+                            if cli:
+                                out = subprocess.run([cli, 'to-markdown', str(uploaded_filepath)], capture_output=True, text=True)
+                                if out.returncode == 0:
+                                    content = out.stdout
+                    except Exception as docling_err:
+                        logger.warning(f"docling parse attempt failed: {docling_err}")
+
+                    if content:
+                        with open(str(md_filepath), 'w', encoding='utf-8') as f:
+                            # If docling already returned full markdown, write it as-is
+                            f.write(content)
+                        logger.info(f"PDF converted to markdown via docling: {md_filename}")
+                        md_file_to_index = md_filename
+                    else:
+                        raise RuntimeError("docling did not return markdown content")
+
+                except Exception as e_docling:
+                    logger.info(f"docling unavailable or failed ({e_docling}). Falling back to PyMuPDF/PyPDF2")
+                    # 2) Try PyMuPDF (fitz)
                     try:
                         import fitz  # PyMuPDF
                         doc = fitz.open(str(uploaded_filepath))
-                        text = ""
+                        parts = []
                         for page in doc:
-                            text += page.get_text()
+                            parts.append(page.get_text() or "")
                         doc.close()
-                    except ImportError:
-                        # Fallback: try using pypdf
+                        text = "\n\n".join(parts)
+                    except Exception:
+                        # 3) Fallback: PyPDF2
                         try:
                             from PyPDF2 import PdfReader
                             reader = PdfReader(str(uploaded_filepath))
-                            text = ""
+                            parts = []
                             for page in reader.pages:
-                                text += page.extract_text()
-                        except ImportError:
-                            # If neither library is available, return error
+                                try:
+                                    parts.append(page.extract_text() or "")
+                                except Exception:
+                                    parts.append("")
+                            text = "\n\n".join(parts)
+                        except Exception:
                             return jsonify({
-                                'error': 'PDF processing not available. Please install PyMuPDF or PyPDF2.',
+                                'error': 'PDF processing not available. Please install docling, PyMuPDF or PyPDF2.',
                                 'filename': safe_filename
                             }), 503
-                    
-                    # Write as markdown
-                    with open(str(md_filepath), 'w', encoding='utf-8') as f:
-                        f.write(f"# {safe_filename}\n\n")
-                        f.write(text)
-                    
-                    logger.info(f"PDF converted to markdown: {md_filename}")
-                    md_file_to_index = md_filename
-                
-                except Exception as pdf_error:
-                    logger.error(f"Failed to convert PDF: {pdf_error}")
-                    return jsonify({'error': f'Failed to convert PDF: {str(pdf_error)}'}), 500
+
+                    # Write as markdown with a simple heading
+                    try:
+                        with open(str(md_filepath), 'w', encoding='utf-8') as f:
+                            f.write(f"# {safe_filename}\n\n")
+                            f.write(text)
+                        logger.info(f"PDF converted to markdown (fallback) : {md_filename}")
+                        md_file_to_index = md_filename
+                    except Exception as write_err:
+                        logger.error(f"Failed to write markdown file: {write_err}")
+                        return jsonify({'error': f'Failed to convert PDF: {str(write_err)}'}), 500
             
             elif file_ext in {'md', 'markdown'}:
                 # Already markdown, just copy to the right location
@@ -456,5 +501,5 @@ if __name__ == '__main__':
     app.run(
         debug=os.environ.get('FLASK_DEBUG', True),
         host='0.0.0.0',
-        port=5000
+        port=int(os.environ.get('FLASK_PORT', 5001))
     )

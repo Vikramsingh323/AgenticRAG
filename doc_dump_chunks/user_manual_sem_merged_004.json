@@ -1,7 +1,7 @@
 {
   "id": "user_manual_sem_merged_004",
   "text": "---\n**Processing Summary**\n- Pages processed: 1\n- Successful extractions: 1\n- Failed extractions: 0",
-  "source": "doc_dump_md/user_manual.md",
+  "source": "/Users/Shared/AgenticRAG/doc_dump_md/user_manual.md",
   "strategy": "semantic_merged",
   "start_line": null,
   "end_line": null,
@@ -394,7 +394,7 @@
   "metadata": {
     "merged_from": [],
     "header": "## Page 1",
-    "source_file": "doc_dump_md/user_manual.md",
+    "source_file": "/Users/Shared/AgenticRAG/doc_dump_md/user_manual.md",
     "strategy": "semantic_merged",
     "threshold": 0.8
   }

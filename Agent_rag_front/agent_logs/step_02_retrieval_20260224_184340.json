@@ -1,0 +1,16 @@
+{
+  "question": "What is the main focus?",
+  "retrieved_count": 10,
+  "chunk_ids": [
+    "quarterly_report_sem_merged_003",
+    "technical_guide_sem_merged_003",
+    "user_manual_sem_merged_003",
+    "quarterly_report_sem_merged_001",
+    "technical_guide_sem_merged_001",
+    "user_manual_sem_merged_001",
+    "technical_guide_hdr_001",
+    "test_upload_sem_merged_002",
+    "technical_guide_sem_merged_002",
+    "test_upload_sem_merged_001"
+  ]
+}

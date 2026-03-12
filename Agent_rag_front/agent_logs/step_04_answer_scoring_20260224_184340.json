@@ -1,0 +1,63 @@
+{
+  "answers": [
+    {
+      "text": "Based on the provided context about technical_guide_sem_merged_001, technical_guide_sem_merged_003: Unable to generate (SarvamAI not available).",
+      "relevance_score": 0.0,
+      "coherence_score": 0.5,
+      "coverage_score": 0.2,
+      "combined_score": 0.21,
+      "source_chunk_ids": [
+        "technical_guide_sem_merged_001",
+        "technical_guide_sem_merged_003"
+      ]
+    },
+    {
+      "text": "Based on the provided context about user_manual_sem_merged_001, technical_guide_sem_merged_001: Unable to generate (SarvamAI not available).",
+      "relevance_score": 0.0,
+      "coherence_score": 0.5,
+      "coverage_score": 0.2,
+      "combined_score": 0.21,
+      "source_chunk_ids": [
+        "user_manual_sem_merged_001",
+        "technical_guide_sem_merged_001"
+      ]
+    },
+    {
+      "text": "Based on the provided context about user_manual_sem_merged_003, test_upload_sem_merged_001: Unable to generate (SarvamAI not available).",
+      "relevance_score": 0.0,
+      "coherence_score": 0.5,
+      "coverage_score": 0.2,
+      "combined_score": 0.21,
+      "source_chunk_ids": [
+        "user_manual_sem_merged_003",
+        "test_upload_sem_merged_001",
+        "technical_guide_hdr_001"
+      ]
+    },
+    {
+      "text": "Based on the provided context about user_manual_sem_merged_003, technical_guide_sem_merged_002: Unable to generate (SarvamAI not available).",
+      "relevance_score": 0.0,
+      "coherence_score": 0.5,
+      "coverage_score": 0.2,
+      "combined_score": 0.21,
+      "source_chunk_ids": [
+        "user_manual_sem_merged_003",
+        "technical_guide_sem_merged_002",
+        "technical_guide_sem_merged_001",
+        "test_upload_sem_merged_001",
+        "technical_guide_sem_merged_003"
+      ]
+    },
+    {
+      "text": "Based on the provided context about quarterly_report_sem_merged_001, technical_guide_sem_merged_002: Unable to generate (SarvamAI not available).",
+      "relevance_score": 0.0,
+      "coherence_score": 0.5,
+      "coverage_score": 0.2,
+      "combined_score": 0.21,
+      "source_chunk_ids": [
+        "quarterly_report_sem_merged_001",
+        "technical_guide_sem_merged_002"
+      ]
+    }
+  ]
+}

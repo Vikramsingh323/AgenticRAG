@@ -1,7 +1,7 @@
 {
   "id": "quarterly_report_sem_merged_003",
   "text": "---",
-  "source": "doc_dump_md/quarterly_report.md",
+  "source": "/Users/Shared/AgenticRAG/doc_dump_md/quarterly_report.md",
   "strategy": "semantic_merged",
   "start_line": null,
   "end_line": null,
@@ -394,7 +394,7 @@
   "metadata": {
     "merged_from": [],
     "header": "## Page 1",
-    "source_file": "doc_dump_md/quarterly_report.md",
+    "source_file": "/Users/Shared/AgenticRAG/doc_dump_md/quarterly_report.md",
     "strategy": "semantic_merged",
     "threshold": 0.8
   }
